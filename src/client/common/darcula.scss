@@ -1,0 +1,83 @@
+.react-codemirror2 {
+  height: 100%;
+  .CodeMirror {
+    background: rgb(0, 30, 60);
+    color: #e6e6e6 !important;
+    line-height: 1.5 !important;
+    height: 100% !important;
+    font-family: "Operator Mono", "Source Sans Pro", Menlo, Monaco, Consolas, Courier New, monospace !important;
+    font-size: 0.8rem;
+    color: #a9b7c6 !important;
+
+    span.cm-meta {
+      color: #bbb529 !important;
+    }
+    span.cm-number {
+      color: #b78eff !important;
+    }
+    span.cm-keyword {
+      line-height: 1em !important;
+      font-weight: bold !important;
+      color: #66d9ef !important;
+    }
+    span.cm-def {
+      color: #e6db74 !important;
+    }
+    span.cm-variable {
+      color: rgb(252, 146, 158) !important;
+    }
+    span.cm-variable-2 {
+      color: #a9b7c6 !important;
+    }
+    span.cm-variable-3,
+    span.cm-type {
+      color: #a9b7c6 !important;
+    }
+    span.cm-property {
+      color: #a9b7c6 !important;
+    }
+    span.cm-operator {
+      color: #a9b7c6 !important;
+    }
+    span.cm-string {
+      color: #a6e22e !important;
+    }
+    span.cm-string-2 {
+      color: #6a8759 !important;
+    }
+    span.cm-comment {
+      color: #808080 !important;
+    }
+    span.cm-link {
+      color: #287bde !important;
+    }
+    span.cm-atom {
+      font-weight: bold !important;
+      color: #cc7832 !important;
+    }
+    span.cm-error {
+      color: #bc3f3c !important;
+    }
+    span.cm-tag {
+      color: #e6db74 !important;
+    }
+    span.cm-attribute {
+      color: #fff !important;
+    }
+    span.cm-qualifier {
+      color: #fff !important;
+    }
+    span.cm-bracket {
+      color: #a9b7c6 !important;
+    }
+    span.cm-builtin {
+      color: #fff !important;
+    }
+
+    .CodeMirror-scroll {
+      .CodeMirror-selected {
+        background: rgb(0, 67, 134);
+      }
+    }
+  }
+}

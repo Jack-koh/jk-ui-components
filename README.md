@@ -25,6 +25,6 @@ $ npm run start 또는 yarn start
 - Popover
 ```
 
-4️⃣. ## Preview  
+4️⃣. ## Preview
 
 <img src="https://user-images.githubusercontent.com/58971165/146940559-96e89af9-cf56-4ef2-9455-8d9662ef1c23.gif" width="500">

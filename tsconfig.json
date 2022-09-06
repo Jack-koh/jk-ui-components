@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src", // 나중에 module참조 에러시 사용할 path
+    "target": "es5", // 컴파일 결과의 ECMAScript 버전
+    "lib": ["dom", "dom.iterable", "esnext", "es5", "es2015.collection", "es2015.iterable"], // 컴파일 과정에서 포함될 라이브러리
+    ////////// Module //////////
+    "module": "esnext", // 모듈 코드 생성시에 어떤 버전으로 생성할지
+    "moduleResolution": "node", // 모듈 코드 해석시에 어떤 버전으로 해석할지
+    "allowSyntheticDefaultImports": true, // default export없는 모듈도 default import 가능하게
+    "esModuleInterop": true, // babel 생태계와의 호환을 의해 __importStar, __importDefault를 내보냄. 타입 시스템 호환을 위해 바로 위의 것 활성화함.
+    // ////////// log //////////
+    // "listFiles": true, // 컴파일 부분에서 생성된 파일의 이름을 로깅함.
+    // "pretty": true, // 에러랑 메세지를 이쁘게 표현함.
+    "allowJs": true, // 자바스크립트 파일 컴파일 허용 여부
+    "downlevelIteration": true, // 타겟이 'ES5', 'ES3'일 때에도 'for-of', spread 그리고 destructuring 문법 모두 지원
+    "skipLibCheck": true, // 정의 파일의 타입 확인을 건너 뛸 지 여부
+    "forceConsistentCasingInFileNames": true, // 파일 참조시 대소문자 구분 철저히 함.
+    "noFallthroughCasesInSwitch": true,
+    "resolveJsonModule": true, // .json 파일도 import 가능
+    "isolatedModules": true, // transpileModule, @babel/plugin-transform-typescript의 컴파일 결과가 안전한지 추가 확인
+    "noEmit": true, // 결과 파일 내보낼지 여부
+    "removeComments": true, // 주석 삭제 여부
+    "jsx": "react",
+    ////////// Lint + Strict //////////
+    "strict": true // typechecking 요소를 활성화 함.
+  },
+  "compileOnSave": true,
+  "include": ["src"]
+}

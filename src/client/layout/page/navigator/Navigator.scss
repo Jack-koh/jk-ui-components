@@ -1,0 +1,104 @@
+@import "lib/module/scss/utils.scss";
+
+#gnb {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow: auto;
+
+  #jk-logo {
+    @include flex(center, initial);
+    width: 100%;
+    height: 80px;
+
+    & > div:first-child {
+      margin-right: 10px;
+    }
+
+    & > div:last-child {
+      p {
+        &:first-child {
+          color: #757575;
+          font-weight: 700;
+          font-size: 0.6875rem;
+          letter-spacing: 0.08rem;
+        }
+        &:last-child {
+          span {
+            color: $blue;
+            font-weight: 500;
+            font-size: 0.8125rem;
+
+            &:last-child {
+              margin-left: 10px;
+            }
+          }
+        }
+      }
+    }
+
+    svg {
+      font-size: 46px;
+      color: $blue;
+    }
+  }
+
+  .jk__accordion {
+    box-shadow: none;
+    a {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: 28px;
+      padding-left: 30px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.5;
+      color: #1d1d1d;
+      border-radius: 5px;
+      transition: color 150ms $cubic-bezier, background-color 150ms $cubic-bezier;
+
+      &:hover {
+        color: #1d1d1d;
+        background-color: #fafafa;
+      }
+
+      &.active {
+        color: #0072e5;
+        background-color: #f0f7ff;
+      }
+    }
+
+    .jk__accordion__summary {
+      font-weight: 500;
+      color: #1a2027;
+      font-size: 0.875rem;
+      &:hover {
+        background-color: #fafafa;
+      }
+
+      .jk__accordion__summary__content {
+        @include flex(center, initial);
+        line-height: 48px;
+        gap: 6px;
+
+        & > div {
+          svg {
+            font-size: 1.2rem;
+            color: $blue;
+          }
+        }
+      }
+    }
+
+    .jk__accordion__collapse {
+      padding: 0;
+    }
+  }
+}

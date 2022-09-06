@@ -1,0 +1,31 @@
+#custom-accordion-example-01 {
+  border-radius: 0;
+  box-shadow: none;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+#custom-accordion-example-01 .custom-summary {
+  flex-direction: row-reverse;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+#custom-accordion-example-01 .custom-summary .jk__accordion__summary__content {
+  width: 100%;
+  padding-left: 8px;
+  display: flex;
+}
+
+#custom-accordion-example-01 .custom-summary .jk__accordion__summary__content span.title {
+  flex: 1;
+  font-size: 16;
+  font-weight: 700;
+}
+
+#custom-accordion-example-01 .custom-summary .jk__accordion__summary__content span.description {
+  flex: 3;
+}
+
+#custom-accordion-example-01 .custom-collapse {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-top: none;
+}

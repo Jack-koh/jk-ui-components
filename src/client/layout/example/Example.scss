@@ -1,0 +1,91 @@
+@import "lib/module/scss/utils.scss";
+
+.ui-example {
+  &.dark {
+    .example-content {
+      background-color: rgb(0, 30, 60);
+    }
+  }
+
+  &.gray {
+    .example-content {
+      background-color: rgb(231, 235, 240);
+    }
+  }
+
+  &.light {
+    .example-content {
+      background-color: fff;
+      border: 1px solid rgb(231, 235, 240);
+    }
+  }
+
+  .example-content {
+    padding: 24px;
+    border-radius: 10px;
+  }
+
+  .utils {
+    box-shadow: none;
+    &:before {
+      content: none !important;
+    }
+    .jk__accordion__summary {
+      padding: 0;
+      .jk__accordion__summary__content {
+        display: flex;
+        justify-content: space-between;
+
+        .tabs {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          opacity: 0;
+          transition: opacity 0.3s $cubic-bezier;
+
+          &.show {
+            opacity: 1;
+
+            & > div {
+              cursor: pointer;
+            }
+          }
+
+          & > div {
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            transition: all 0.3s $cubic-bezier;
+
+            &.active {
+              border: 1px solid $blue;
+              background-color: $blue-bg;
+            }
+
+            &:hover {
+              background-color: $blue-bg;
+            }
+
+            svg {
+              font-size: 1rem;
+            }
+          }
+        }
+      }
+      .jk__accordion__icon {
+        display: none;
+      }
+    }
+    .code-icon {
+      width: 41px;
+      height: 41px;
+      cursor: pointer;
+    }
+
+    .jk__accordion__collapse {
+      position: relative;
+      overflow: auto !important;
+      background-color: rgb(0, 30, 60);
+    }
+  }
+}
