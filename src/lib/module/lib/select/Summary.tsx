@@ -10,7 +10,7 @@ function Summary(props: N_Select.Summary.Props) {
   const isMounted = useRef(false);
   const toggleHandler = (): boolean | void => !disabled && setToggle(!toggle);
 
-  const label = [...selected.values()].map((el) => el.label).join(", ");
+  const label = [...selected.values()].map((el) => el.title).join(", ");
 
   useEffect(() => {
     if (!isMounted.current) isMounted.current = true;
@@ -24,8 +24,14 @@ function Summary(props: N_Select.Summary.Props) {
       title={label}
       onKeyPress={toggleHandler}
       onClick={toggleHandler}>
-      <div className="button__title">
-        {selected.size ? label : isMounted.current ? props.placeholder : ""}
+      <div className={cx(cn.concat("__button__title"))}>
+        {selected.size ? (
+          label
+        ) : isMounted.current ? (
+          <span className={cx(cn.concat("__placeholder"))}>{props.placeholder}</span>
+        ) : (
+          ""
+        )}
       </div>
       <ArrowDown className={cx(cn.concat("__icon"))} />
     </div>

@@ -1,9 +1,10 @@
 import React from "react";
 
 export declare namespace N_Select {
-  type onChange = (item: Data[]) => void;
+  type onChange = (item: string | number | undefined | (string | number | undefined)[]) => void;
   type Parameter = {
     id?: string;
+    label?: string;
     className?: string;
     onChange?: onChange;
     disabled?: boolean;
@@ -11,12 +12,14 @@ export declare namespace N_Select {
     children: React.ReactNode[];
     multiple?: boolean;
     name?: string;
+    height?: number;
+    width?: number;
     ref?: React.ForwardedRef<HTMLSelectElement>;
   };
 
-  type Data<T> = {
-    label: string;
-    value: T;
+  type Data = {
+    title: string;
+    value: string | number | undefined;
     selected?: boolean;
     disabled?: boolean;
   };
@@ -36,7 +39,6 @@ export declare namespace N_Select {
 
   namespace Options {
     type Parameter = {
-      options?: Data[];
       position?: "bottom" | "top";
       children?: JSX.Element[];
     };
@@ -46,21 +48,21 @@ export declare namespace N_Select {
   }
 
   namespace Item {
-    type Parameter<T> = {
+    type Parameter = {
       index?: number;
-      label?: string;
-      value?: T;
+      title?: string;
+      value?: string | number | undefined;
       options?: Data[];
       setOptions?: React.Dispatch<Data[]>;
       selected?: boolean;
-      children?: React.ReactNode;
+      children?: ((data: Data) => JSX.Element) | JSX.Element;
       className?: string;
     };
 
     type DefaultProps = Required<
       Pick<
         Parameter,
-        "label" | "value" | "index" | "selected" | "options" | "setOptions" | "className"
+        "title" | "value" | "index" | "selected" | "options" | "setOptions" | "className"
       >
     >;
     type Props = Parameter & DefaultProps;

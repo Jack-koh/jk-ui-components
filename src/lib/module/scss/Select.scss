@@ -29,10 +29,15 @@
 
 .jk__select {
   position: relative;
-  width: 300px;
-  height: 40px;
   cursor: pointer;
+  width: 300px;
   transition: all 0.2s ease;
+
+  label.jk__select__label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
 
   &.active {
     .jk__select__button {
@@ -50,18 +55,17 @@
   }
 
   &.disabled {
-    background-color: #f5f5f5;
-    cursor: initial;
     .jk__select__button {
       color: #a5adba;
+      background-color: #f5f5f5;
+      cursor: initial;
     }
   }
 
   .jk__select__button {
     @include flex(center, space-between);
+    height: 40px;
     position: relative;
-    width: 100%;
-    height: 100%;
     box-sizing: border-box;
     padding: 0 14px;
     border: 1px solid #e6e6e6;
@@ -75,12 +79,16 @@
     cursor: pointer;
     transition: all 300ms $cubic-bezier;
 
-    .button__title {
+    .jk__select__button__title {
       width: calc(100% - 20px);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
       color: #363636;
+
+      span.jk__select__placeholder {
+        color: #00000061;
+      }
     }
 
     .jk__select__icon {
@@ -92,7 +100,7 @@
   .jk__select__options {
     @include CSSTransition;
     width: 100%;
-    height: 202px;
+    max-height: 282px;
     border-radius: 4px;
     position: absolute;
     z-index: 100;
@@ -119,14 +127,13 @@
       text-overflow: ellipsis;
       cursor: pointer;
       transition: background-color 0.1s;
-      border-radius: 4px;
 
       &:hover {
         background-color: #f5fbff;
       }
 
       &.selected {
-        font-weight: 900;
+        font-weight: 700;
         color: #006dbc;
       }
 

@@ -58,10 +58,6 @@ export const isElement = (element: unknown) => {
   if (isValidElement(isObject(element))) return element as ReactElement;
   return null;
 };
-export const isJSXElement = (element: unknown) => {
-  const el = isElement(element);
-  return el && el.type === "string" ? el : null;
-};
 
 export const isComponent = (component: unknown, type = "function"): JSX.Element | null => {
   const comp = isElement(component);

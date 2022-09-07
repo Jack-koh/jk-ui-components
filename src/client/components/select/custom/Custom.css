@@ -1,0 +1,38 @@
+#custom-select-button .jk__select__button {
+  background-color: #edf7ed;
+  border-color: #d4ffd4;
+}
+
+#custom-select-button.active .jk__select__button {
+  border-color: #133615;
+}
+
+#custom-select-button .jk__select__item {
+  padding: 0;
+}
+
+#custom-select-button .jk__select__options {
+  top: 50px;
+  box-shadow: none;
+  border: 1px solid #133615;
+}
+
+#custom-select-button .jk__select__item .jk__button {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background-color: #edf7ed;
+  color: #1e4620;
+}
+
+#custom-select-button .jk__select__item.selected .jk__button {
+  background-color: #d4ffd4;
+  color: #133615;
+  font-weight: 700;
+}
+
+#custom-select-checkbox .jk__select__item > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

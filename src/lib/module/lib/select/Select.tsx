@@ -17,8 +17,8 @@ type Context = {
   toggle: boolean;
   anchor: HTMLDivElement | null;
   transition: boolean;
-  selected: Map<number, N_Select.Data<unknown>>;
-  setSelected: Dispatch<Map<number, N_Select.Data<unknown>>>;
+  selected: Map<number, N_Select.Data>;
+  setSelected: Dispatch<Map<number, N_Select.Data>>;
   setToggle: (toggle: boolean) => void;
   onChange: N_Select.onChange;
 };
@@ -31,7 +31,9 @@ const initialContext: Context = {
   transition: true,
   selected: new Map(),
   setSelected() { /* prettier-ignore */},
-  onChange(_item: N_Select.Data<unknown>[], _index?: number) { /* prettier-ignore */},
+  onChange(
+    _item: string | number | undefined | (string | number | undefined)[],
+  ) { /* prettier-ignore */},
   setToggle(_toggle: boolean) { /* prettier-ignore */ },
 };
 
@@ -41,7 +43,7 @@ function Select(props: N_Select.Props) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useState(false);
-  const [selected, setSelected] = useState<Map<number, N_Select.Data<unknown>>>(new Map());
+  const [selected, setSelected] = useState<Map<number, N_Select.Data>>(new Map());
 
   useClickOutSide({
     toggle,
@@ -55,9 +57,7 @@ function Select(props: N_Select.Props) {
       const warn = () =>
         console.warn("Summary 와 Options 컴포넌트 외의 다른 컴포넌트는 표출되지 않습니다.");
       if (isValidElement(child) && typeof child.type !== "string") {
-        const { displayName } = child.type as typeof child.type & {
-          displayName?: string;
-        };
+        const { displayName } = child.type as typeof child.type & { displayName?: string };
         if (displayName === "JK_SELECT_SUMMARY") result.Summary = child;
         else if (displayName === "JK_SELECT_OPTIONS") {
           result.Options = child;
@@ -67,61 +67,68 @@ function Select(props: N_Select.Props) {
     return result;
   })();
 
-  // const field = wrapperRef.current?.getElementsByTagName("select")[0];
-  const data = Element.Options.props.children
-    ? Element.Options.props.children.map((el: React.ReactElement) => el.props)
-    : Element.Options.props.options.map((el: N_Select.Data<unknown>) => el.value);
+  const data: N_Select.Data[] = Element.Options.props.children.map(
+    (el: React.ReactElement) => el.props,
+  );
 
-  const VALUE: any = props.multiple
-    ? ([...selected].map((el) => el[1].value) as any[])
+  const VALUE = props.multiple
+    ? ([...selected].map((el) => el[1].value?.toString()) as ReadonlyArray<string>)
     : selected.size
-    ? ([...selected.values()][0].value as any)
+    ? [...selected.values()][0].value
     : "";
 
+  console.log(props.width);
+
   return (
-    <SelectContext.Provider
-      value={{
-        toggle,
-        setToggle,
-        multiple: props.multiple,
-        disabled: props.disabled,
-        selected,
-        setSelected,
-        anchor: anchorRef.current,
-        onChange: props.onChange,
-        transition: props.transition,
-      }}>
-      <div
-        ref={wrapperRef}
-        id={props.id}
-        className={cx(cn, {
-          [props.className]: props.className,
+    <>
+      <select
+        value={VALUE}
+        hidden
+        aria-hidden
+        aria-readonly
+        ref={props.ref}
+        name={props.name}
+        onChange={(e) => { /* prettier-ignore */ }}
+        multiple={props.multiple}>
+        {!selected.size && <option value={undefined} />}
+        {data.map((el, i: number) => {
+          return (
+            <option key={i} value={el.value}>
+              {el.title}
+            </option>
+          );
+        })}
+      </select>
+
+      <SelectContext.Provider
+        value={{
+          toggle,
+          setToggle,
+          multiple: props.multiple,
           disabled: props.disabled,
-          active: toggle,
-        })}>
-        <select
-          value={VALUE}
-          hidden
-          aria-hidden
-          aria-readonly
-          ref={props.ref}
-          name={props.name}
-          onChange={() => { /* prettier-ignore */}}
-          multiple={props.multiple}>
-          {!selected.size && <option value={undefined}>선택안함</option>}
-          {data.map((el: any) => {
-            return (
-              <option key={`${el.label} ${el.value}`} value={el.value}>
-                {el.label}
-              </option>
-            );
-          })}
-        </select>
-        <Render ref={anchorRef}>{Element.Summary}</Render>
-        {Element.Options}
-        {/* <Validator.Error error={error} top={rest.styles?.height ?? 40} /> */}
-      </div>
-    </SelectContext.Provider>
+          selected,
+          setSelected,
+          anchor: anchorRef.current,
+          onChange: props.onChange,
+          transition: props.transition,
+        }}>
+        <div
+          style={{ width: props.width, height: props.height }}
+          ref={wrapperRef}
+          id={props.id}
+          className={cx(cn, {
+            [props.className]: props.className,
+            disabled: props.disabled,
+            active: toggle,
+          })}>
+          <label className={cx(cn.concat("__label"))} htmlFor={props.name}>
+            {props.label}
+          </label>
+          <Render ref={anchorRef}>{Element.Summary}</Render>
+          {Element.Options}
+        </div>
+      </SelectContext.Provider>
+    </>
   );
 }
 
@@ -134,7 +141,9 @@ const defaultProps: N_Select.DefaultProps = {
   transition: true,
   multiple: false,
   // eslint-disable-next-line
-  onChange(_item: N_Select.Data<unknown>[], _index?: number) {/* prettier-ignore */},
+  onChange(
+    _item: string | number | undefined | (string | number | undefined)[],
+  ) {/* prettier-ignore */},
 };
 Select.defaultProps = defaultProps;
 
