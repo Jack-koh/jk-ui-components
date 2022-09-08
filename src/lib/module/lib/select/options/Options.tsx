@@ -5,9 +5,15 @@ import { CSSTransition } from "react-transition-group";
 import type { N_Select } from "lib/@types";
 import positionHandler from "./positionHandler";
 
-function Options<T>(props: N_Select.Options.Props) {
-  const { multiple, toggle, anchor, disabled, transition, selected, setSelected } =
-    useContext(SelectContext);
+function Options(props: N_Select.Options.Props) {
+  const {
+    multiple,
+    anchor,
+    disabled,
+    transition,
+    state: { toggle, selected },
+    setState: { setSelected },
+  } = useContext(SelectContext);
   const { children, position } = props;
   const ref = useRef<HTMLDivElement>(null);
 
@@ -40,19 +46,23 @@ function Options<T>(props: N_Select.Options.Props) {
       <div ref={ref} className="jk__select__options">
         {children &&
           ChildMap(children, (child, index) => {
-            if (child.type.displayName !== "JK_SELECT_ITEM")
-              throw new Error(
-                "Failed children type: The props 'children' should be Select.Item component., but its component is not Select.Item",
-              );
-            const props = {
-              ...child.props,
-              key: `${child.props.label} ${index}`,
-              selected: selected.get(index)?.selected,
+            const {
+              type: { displayName },
+              props,
+              props: { label },
+            } = child;
+
+            if (displayName !== "JK_SELECT_ITEM") {
+              const message = `Failed children type: The props 'children' should be Select.Item component., but its component is not Select.Item`;
+              throw new Error(message);
+            }
+
+            return React.cloneElement(child, {
+              ...props,
               index,
-              // options,
-              // setOptions,
-            };
-            return React.cloneElement(child, props);
+              key: `${label} ${index}`,
+              selected: selected.get(index)?.selected,
+            });
           })}
       </div>
     </CSSTransition>

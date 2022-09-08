@@ -7,7 +7,7 @@ import "./Custom.css";
 export function Custom() {
   return (
     <Ex source={source}>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex", justifyContent: "space-around", gap: 20 }}>
         <Select multiple name="custom" id="custom-select-button">
           <Select.Summary placeholder="Button style" />
           <Select.Options>

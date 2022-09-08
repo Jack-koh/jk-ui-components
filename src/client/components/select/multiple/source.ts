@@ -1,42 +1,35 @@
 const source = {
-  jsx: `import * as React from 'react'
-import { Accordion } from "lib/module/lib";
+  jsx: `import React from "react";
+import { Select } from "lib/module/lib";
+import source from "./source";
 
-export default function BasicAccordion() {
-
+export function Multiple() {
   return (
-    <React.Fragment>
-      <Accordion>
-        <Accordion.Summary>Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Fugiat cillum anim est ipsum veniam nulla labore ad est. Officia nisi exercitation est
-          magna consectetur. Ex aute ut est elit eu in ipsum laboris reprehenderit elit qui culpa.
-        </Accordion.Collapse>
-      </Accordion>
+    <div style={{ display: "flex", justifyContent: "space-around", gap: 20 }}>
+      <Select name="multiple" multiple>
+        <Select.Summary placeholder="place holder" />
+        <Select.Options>
+          <Select.Item title="Frozen yoghurt" value="Frozen yoghurt" />
+          <Select.Item title="Ice cream sandwich" value="Ice cream sandwich" />
+          <Select.Item title="Eclair" value="Eclair" />
+          <Select.Item title="Cupcake" value="Cupcake" />
+          <Select.Item title="Gingerbread" value="Gingerbread" />
+        </Select.Options>
+      </Select>
 
-      <Accordion rowToggle>
-        <Accordion.Summary>Row Selection Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Voluptate fugiat in reprehenderit consequat adipisicing qui proident enim. Aute occaecat
-          ullamco in magna dolor occaecat laborum voluptate nisi in sit. Ad id incididunt nostrud
-          voluptate consectetur aliquip. Tempor culpa aute sunt nulla irure cupidatat magna. Elit
-          enim duis deserunt pariatur eu. Anim sit occaecat voluptate nisi. Laboris cillum Lorem
-          quis proident cillum irure irure id occaecat culpa incididunt tempor.
-        </Accordion.Collapse>
-      </Accordion>
-
-      <Accordion disabled>
-        <Accordion.Summary>Disabled Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Exercitation amet velit ut quis sunt duis fugiat cillum consectetur magna esse in.
-          Proident elit veniam dolore ad voluptate elit deserunt proident nulla in esse
-          reprehenderit. Minim nostrud eu nulla sit non et pariatur irure ex. Laboris exercitation
-          qui enim sint aliqua veniam officia anim tempor cupidatat.
-        </Accordion.Collapse>
-      </Accordion>
-    </React.Fragment>
-  }
-)`,
+      <Select multiple>
+        <Select.Summary />
+        <Select.Options>
+          <Select.Item title="India" value="India" selected />
+          <Select.Item title="China" value="China" selected />
+          <Select.Item title="Italy" value="Italy" />
+          <Select.Item title="United States'" value="United States'" />
+          <Select.Item title="Canada" value="Canada" />
+        </Select.Options>
+      </Select>
+    </div>
+  );
+}`,
 };
 
 export default source;

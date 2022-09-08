@@ -7,7 +7,12 @@ import { N_Select } from "lib/@types";
 import { cn } from "./Select";
 
 function Item(props: N_Select.Item.Props) {
-  const { multiple, selected, setSelected, onChange, setToggle } = useContext(SelectContext);
+  const {
+    multiple,
+    state: { selected },
+    setState: { setSelected, setToggle },
+    onChange,
+  } = useContext(SelectContext);
   const { title, value, index, children, className } = props;
 
   if (index === -1) throw new Error("index 세팅이 되지 않음");

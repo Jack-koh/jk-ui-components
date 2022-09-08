@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Select } from "lib/module/lib";
+import { Select, Button } from "lib/module/lib";
 import { Ex } from "client/layout";
 import source from "./source";
 
 export function Controlled() {
   const [selected, setSelected] = useState("");
   const [selectedList, setSelectedList] = useState(["1"]);
+  const [keepValueDisabled, setKeepValueDisabled] = useState(false);
+  const [resetValueDisabled, setResetValueDisabled] = useState(false);
 
   const handleSelect = (value) => {
     setSelected(value);
@@ -15,11 +17,9 @@ export function Controlled() {
     setSelectedList(value);
   };
 
-  console.log(selectedList);
-
   return (
     <Ex source={source}>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex", justifyContent: "space-around", gap: 20, flexWrap: "wrap" }}>
         <Select
           name="controlled"
           onChange={(value) => {
@@ -46,6 +46,36 @@ export function Controlled() {
             <Select.Item title="Marshmallow" value="4" />
           </Select.Options>
         </Select>
+
+        <Select label="Reset value" disabled={{ value: keepValueDisabled, shouldKeepValue: true }}>
+          <Select.Summary placeholder="initial value" />
+          <Select.Options>
+            <Select.Item title="Ten" value="Ten" selected />
+            <Select.Item title="Twenty" value="Twenty" />
+            <Select.Item title="Thirty" value="Thirty" />
+          </Select.Options>
+        </Select>
+
+        <div style={{ width: 300, alignSelf: "flex-end" }}>
+          <Button st={{ height: 40 }} onClick={() => setKeepValueDisabled(!keepValueDisabled)}>
+            Keep value toggle
+          </Button>
+        </div>
+
+        <Select label="Keep value" disabled={resetValueDisabled}>
+          <Select.Summary placeholder="initial value" />
+          <Select.Options>
+            <Select.Item title="Ten" value="Ten" selected />
+            <Select.Item title="Twenty" value="Twenty" />
+            <Select.Item title="Thirty" value="Thirty" />
+          </Select.Options>
+        </Select>
+
+        <div style={{ width: 300, alignSelf: "flex-end" }}>
+          <Button st={{ height: 40 }} onClick={() => setResetValueDisabled(!resetValueDisabled)}>
+            Reset value toggle
+          </Button>
+        </div>
       </div>
     </Ex>
   );

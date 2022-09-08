@@ -1,13 +1,15 @@
 import React from "react";
 
 export declare namespace N_Select {
-  type onChange = (item: string | number | undefined | (string | number | undefined)[]) => void;
+  type value = string | number | undefined | ReadonlyArray<string | number | undefined>;
+
+  type onChange = (value: value) => void;
   type Parameter = {
     id?: string;
     label?: string;
     className?: string;
     onChange?: onChange;
-    disabled?: boolean;
+    disabled?: { value: boolean; shouldKeepValue?: boolean } | boolean;
     transition?: boolean;
     children: React.ReactNode[];
     multiple?: boolean;

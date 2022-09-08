@@ -6,9 +6,10 @@ import { ArrowDown } from "lib/module/lib/Icons";
 import { cx } from "lib/module/lib/functions";
 
 function Summary(props: N_Select.Summary.Props) {
-  const { toggle, selected, setToggle, disabled } = useContext(SelectContext);
+  const {
+    state: { selected },
+  } = useContext(SelectContext);
   const isMounted = useRef(false);
-  const toggleHandler = (): boolean | void => !disabled && setToggle(!toggle);
 
   const label = [...selected.values()].map((el) => el.title).join(", ");
 
@@ -17,13 +18,7 @@ function Summary(props: N_Select.Summary.Props) {
   }, []);
 
   return (
-    <div
-      role="button"
-      tabIndex={0}
-      className={cx(cn.concat("__button"))}
-      title={label}
-      onKeyPress={toggleHandler}
-      onClick={toggleHandler}>
+    <div role="button" tabIndex={0} className={cx(cn.concat("__button"))} title={label}>
       <div className={cx(cn.concat("__button__title"))}>
         {selected.size ? (
           label

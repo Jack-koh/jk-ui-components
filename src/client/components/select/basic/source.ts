@@ -1,42 +1,53 @@
 const source = {
-  jsx: `import * as React from 'react'
-import { Accordion } from "lib/module/lib";
+  jsx: `import React from "react";
+import { Select } from "lib/module/lib";
+import source from "./source";
 
-export default function BasicAccordion() {
-
+export function Basic() {
   return (
-    <React.Fragment>
-      <Accordion>
-        <Accordion.Summary>Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Fugiat cillum anim est ipsum veniam nulla labore ad est. Officia nisi exercitation est
-          magna consectetur. Ex aute ut est elit eu in ipsum laboris reprehenderit elit qui culpa.
-        </Accordion.Collapse>
-      </Accordion>
+    <div style={{ display: "flex", justifyContent: "space-around", gap: 20, flexWrap: "wrap" }}>
+      <Select name="basic" label="Single">
+        <Select.Summary />
+        <Select.Options>
+          <Select.Item title="apple" value="apple" />
+          <Select.Item title="banana" value="banana" />
+          <Select.Item title="carrot" value="carrot" />
+          <Select.Item title="grape" value="grape" />
+          <Select.Item title="peach" value="peach" />
+        </Select.Options>
+      </Select>
 
-      <Accordion rowToggle>
-        <Accordion.Summary>Row Selection Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Voluptate fugiat in reprehenderit consequat adipisicing qui proident enim. Aute occaecat
-          ullamco in magna dolor occaecat laborum voluptate nisi in sit. Ad id incididunt nostrud
-          voluptate consectetur aliquip. Tempor culpa aute sunt nulla irure cupidatat magna. Elit
-          enim duis deserunt pariatur eu. Anim sit occaecat voluptate nisi. Laboris cillum Lorem
-          quis proident cillum irure irure id occaecat culpa incididunt tempor.
-        </Accordion.Collapse>
-      </Accordion>
+      <Select label="Default">
+        <Select.Summary />
+        <Select.Options>
+          <Select.Item title="Harry Kane" value="0" selected />
+          <Select.Item title="Oliver Hansen" value="1" />
+          <Select.Item title="Van Henry" value="2" />
+          <Select.Item title="April Tucker" value="3" />
+          <Select.Item title="Ralph Hubbard" value="4" />
+        </Select.Options>
+      </Select>
 
-      <Accordion disabled>
-        <Accordion.Summary>Disabled Accordion</Accordion.Summary>
-        <Accordion.Collapse>
-          Exercitation amet velit ut quis sunt duis fugiat cillum consectetur magna esse in.
-          Proident elit veniam dolore ad voluptate elit deserunt proident nulla in esse
-          reprehenderit. Minim nostrud eu nulla sit non et pariatur irure ex. Laboris exercitation
-          qui enim sint aliqua veniam officia anim tempor cupidatat.
-        </Accordion.Collapse>
-      </Accordion>
-    </React.Fragment>
-  }
-)`,
+      <Select label="Place holder">
+        <Select.Summary placeholder="place holder" />
+        <Select.Options>
+          <Select.Item title="Ten" value="Ten" />
+          <Select.Item title="Twenty" value="Twenty" />
+          <Select.Item title="Thirty" value="Thirty" />
+        </Select.Options>
+      </Select>
+
+      <Select label="Disabled" disabled>
+        <Select.Summary placeholder="disabled" />
+        <Select.Options>
+          <Select.Item title="Ten" value="Ten" />
+          <Select.Item title="Twenty" value="Twenty" />
+          <Select.Item title="Thirty" value="Thirty" />
+        </Select.Options>
+      </Select>
+    </div>
+  );
+}`,
 };
 
 export default source;

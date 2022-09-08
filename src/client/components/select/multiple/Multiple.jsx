@@ -6,7 +6,7 @@ import source from "./source";
 export function Multiple() {
   return (
     <Ex source={source}>
-      <div style={{ display: "flex", justifyContent: "space-around" }}>
+      <div style={{ display: "flex", justifyContent: "space-around", gap: 20 }}>
         <Select name="multiple" multiple>
           <Select.Summary placeholder="place holder" />
           <Select.Options>
