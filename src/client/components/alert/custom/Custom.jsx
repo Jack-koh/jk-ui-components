@@ -6,7 +6,9 @@ import "./Custom.css";
 
 export function Custom() {
   return (
-    <Ex source={source}>
+    <Ex
+      source={source}
+      st={{ display: "flex", alignItems: "center", justifyContent: "center", height: 200 }}>
       <Alert.Provider>
         <Alert.Consumer>
           {({ set }) => {

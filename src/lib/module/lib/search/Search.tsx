@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import classNames from "classnames";
@@ -51,7 +52,7 @@ function Search(props: Props) {
     <Form
       {...pick(props.styles, ["width", "height"])}
       className={classNames("jk__search__form__field", { [className]: className, focus })}>
-      <Input
+      {/* <Input
         placeholder={props.placeholder}
         onChange={(e) => setValue(e.target.value)}
         keyEnter={submitHandler}
@@ -60,7 +61,7 @@ function Search(props: Props) {
           if (!focus) setFocus(true);
         }}
         onBlur={() => focus && setFocus(false)}
-      />
+      /> */}
       <button className="search-button" type="button" onClick={() => submitHandler(value)}>
         <i />
       </button>

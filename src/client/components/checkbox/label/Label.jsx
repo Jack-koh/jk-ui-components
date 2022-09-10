@@ -7,12 +7,8 @@ export function Label() {
   return (
     <Ex source={source}>
       <React.Fragment>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div>
-            <CheckBox label="Label" />
-            <CheckBox disabled label="Disabled" />
-          </div>
-        </div>
+        <CheckBox label="Label" name="1" />
+        <CheckBox disabled label="Disabled" />
       </React.Fragment>
     </Ex>
   );

@@ -26,14 +26,14 @@ function Item(props: N_Select.Item.Props) {
 
     setSelected(new Map([[index, { title, value, selected: true }]]));
     setToggle(false);
-    onChange(value);
+    if (onChange) onChange(value);
   };
 
   const multipleHandler = () => {
     const modify = !props.selected;
     modify ? selected.set(index, { title, value, selected: modify }) : selected.delete(index);
     setSelected(new Map(selected));
-    onChange([...selected].map((el) => el[1].value));
+    if (onChange) onChange([...selected].map((el) => el[1].value));
   };
 
   const onClickHandler = () => {

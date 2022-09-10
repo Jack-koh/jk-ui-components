@@ -20,7 +20,7 @@ export function Anchor() {
           return (
             <div
               key={index}
-              style={{ display: "flex", gap: 10, marginBottom: index !== 3 ? 10 : undefined }}>
+              style={{ display: "flex", gap: 20, marginBottom: index !== 3 ? 10 : undefined }}>
               {row.map((pos) => {
                 return (
                   <Alert.Provider key={pos}>

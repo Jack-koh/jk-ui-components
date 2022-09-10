@@ -90,7 +90,7 @@ export function Custom() {
 #custom-select-checkbox .jk__select__item > div {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }`,
 };
 

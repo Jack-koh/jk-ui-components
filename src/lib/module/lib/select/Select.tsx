@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useRef, useState, isValidElement, createContext, Dispatch, useEffect } from "react";
+import React, { useRef, useState, forwardRef, createContext, Dispatch, useEffect } from "react";
 import { useClickOutSide } from "lib/module/lib/hook";
 
 import type { N_Select } from "lib/@types";
@@ -22,10 +22,10 @@ type Context = {
     setToggle: (toggle: boolean) => void;
     setSelected: Dispatch<Map<number, N_Select.Data>>;
   };
-  multiple: boolean;
+  multiple?: boolean;
   disabled: { value: boolean; shouldKeepValue?: boolean } | boolean;
   transition: boolean;
-  onChange: N_Select.onChange;
+  onChange?: N_Select.onChange;
 };
 
 const initialContext: Context = {
@@ -44,8 +44,19 @@ const initialContext: Context = {
 
 export const SelectContext = createContext(initialContext);
 
-function Select(props: N_Select.Props) {
-  const { id, className, ref, children, multiple, width, height, disabled, label, name } = props;
+function Select(props: N_Select.Props, ref?: React.ForwardedRef<HTMLSelectElement>) {
+  const {
+    id,
+    className = "",
+    multiple = false,
+    disabled = false,
+    transition = true,
+    children,
+    width,
+    height,
+    label,
+    name,
+  } = props;
   const wrapperRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useState(false);
@@ -72,26 +83,23 @@ function Select(props: N_Select.Props) {
 
   const _disabled = isObject(disabled) ? disabled.value : disabled;
 
+  const provide = {
+    value,
+    state: { toggle, selected },
+    setState: { setToggle, setSelected },
+    anchor: anchorRef.current,
+    disabled: _disabled,
+    transition,
+    ...pick(props, ["multiple", "onChange"]),
+  };
+
   return (
-    <SelectContext.Provider
-      value={{
-        value,
-        state: { toggle, selected },
-        setState: { setToggle, setSelected },
-        anchor: anchorRef.current,
-        disabled: _disabled,
-        ...pick(props, ["multiple", "onChange", "transition"]),
-      }}>
-      <Semantic ref={ref} name={name} options={Options.props.children} />
+    <SelectContext.Provider value={provide}>
       <div
         style={{ width, height }}
         ref={wrapperRef}
         id={id}
-        className={cx(cn, {
-          [className]: className,
-          disabled: _disabled,
-          active: toggle,
-        })}>
+        className={cx(cn, { [className]: className, disabled: _disabled, active: toggle })}>
         <label className={cx(cn.concat("__label"))} htmlFor={name}>
           {label}
         </label>
@@ -99,22 +107,27 @@ function Select(props: N_Select.Props) {
           {Summary}
         </Render>
         {Options}
+        <Semantic
+          innerRef={ref}
+          name={name}
+          options={Options.props.children}
+          onChange={props.onChange as any}
+        />
       </div>
     </SelectContext.Provider>
   );
 }
 
-Select.Summary = Summary;
-Select.Options = Options;
-Select.Item = Item;
-const defaultProps: N_Select.DefaultProps = {
-  disabled: false,
-  className: "",
-  transition: true,
-  multiple: false,
-  // eslint-disable-next-line
-  onChange(_value: N_Select.value) {/* prettier-ignore */},
+const foward = forwardRef<HTMLSelectElement, N_Select.Props>(Select);
+type ForwardSelect = typeof foward & {
+  Summary: typeof Summary;
+  Options: typeof Options;
+  Item: typeof Item;
 };
-Select.defaultProps = defaultProps;
 
-export default Select;
+const ForwardSelect = foward as ForwardSelect;
+ForwardSelect.Summary = Summary;
+ForwardSelect.Options = Options;
+ForwardSelect.Item = Item;
+
+export default ForwardSelect;

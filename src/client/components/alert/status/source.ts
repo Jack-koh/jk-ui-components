@@ -8,7 +8,7 @@ export function Status() {
 
   return (
     <React.Fragment>
-      <div style={{ display: "flex", gap: 10 }}>
+      <div style={{ display: "flex", gap: 20 }}>
         {status.map((st) => {
           return (
             <Alert.Provider key={st}>

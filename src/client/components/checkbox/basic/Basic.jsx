@@ -8,9 +8,9 @@ export function Basic() {
     <Ex source={source}>
       <React.Fragment>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
-          <CheckBox checked={1} />
-          <CheckBox checked={0} />
-          <CheckBox checked={1} disabled />
+          <CheckBox defaultValue={true} />
+          <CheckBox defaultValue={false} />
+          <CheckBox defaultValue={true} disabled />
           <CheckBox disabled />
         </div>
       </React.Fragment>

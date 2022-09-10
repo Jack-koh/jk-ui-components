@@ -1,6 +1,8 @@
 @import "./utils.scss";
 
 .jk__input {
+  width: 300px;
+  height: 55px;
   display: inline-block;
   position: relative;
 
@@ -18,7 +20,8 @@
   }
 
   input {
-    width: 300px;
+    width: inherit;
+    height: inherit;
     border: 1px solid $border;
     padding: 16px 14px;
     font-size: 1rem;

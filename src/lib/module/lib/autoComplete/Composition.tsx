@@ -110,7 +110,7 @@ export function InputContainer(props: IInputContainer): JSX.Element {
         onBlur={props.onBlur}
         placeholder={placeholder}
         disabled={disabled}
-        keyEnter={keyEnter}
+        // keyEnter={keyEnter}
         onChange={(e) => {
           if (props.onChange) props.onChange(e);
           onChange({ choice, data, searchText: e.target.value });
@@ -139,13 +139,13 @@ function AllCheck() {
     <div className="autocomplete__all__check">
       <CheckBox
         label="전체 선택"
-        checked={checked()}
+        // checked={checked()}
         onChange={(check) => {
-          onChange({
-            searchText,
-            choice: { ...initChoice, isAllCheck: check },
-            data: data.map((el) => ({ ...el, selected: !!check })),
-          });
+          // onChange({
+          //   searchText,
+          //   choice: { ...initChoice, isAllCheck: check },
+          //   data: data.map((el) => ({ ...el, selected: !!check })),
+          // });
         }}
       />
     </div>

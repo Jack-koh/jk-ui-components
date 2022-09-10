@@ -7,6 +7,7 @@ import { CodeMirror } from "client/common";
 import "./Example.scss";
 
 type Props = {
+  st?: React.CSSProperties;
   children: React.ReactNode;
   source: { jsx?: string; css?: string };
   theme?: "light" | "dark" | "gray";
@@ -22,7 +23,9 @@ function Ex(props: Props) {
 
   return (
     <div className={`ui-example ${props.theme}`}>
-      <div className="example-content">{props.children}</div>
+      <div className="example-content" style={props.st}>
+        {props.children}
+      </div>
       <Accordion className="utils" expanded={expanded}>
         <Accordion.Summary>
           <div className={cx("tabs", { show: !!expanded })}>
@@ -54,6 +57,6 @@ function Ex(props: Props) {
   );
 }
 
-Ex.defaultProps = { source: { jsx: "", scss: "" }, theme: "light" };
+Ex.defaultProps = { source: { jsx: "", scss: "" }, theme: "light", st: undefined };
 
 export default Ex;

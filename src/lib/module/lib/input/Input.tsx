@@ -1,51 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { cx } from "lib/module/lib/functions";
-import { pick } from "lodash";
-import * as Icons from "lib/module/lib/Icons";
+import { LockOpend, LockClosed } from "lib/module/lib/Icons";
 import { N_Input } from "lib/@types";
 
 const cn = "jk__input";
 
-function Input(props: N_Input.Props) {
-  const { disabled, readonly, className } = props;
-  const [type, setType] = useState(props.type);
+function Input(props: N_Input.Props, ref?: React.ForwardedRef<HTMLInputElement>) {
+  const { id, st, className = "", ...rest } = props;
+  const [_type, setType] = useState(rest.type);
 
   return (
-    <div id={props.id} className={cx(cn, { [className]: className, disabled })}>
-      <input
-        {...props}
-        type={type}
-        style={props.st}
-        ref={props.innerRef}
-        value={props.value}
-        spellCheck="false"
-        {...pick(props, ["placeholder", "disabled", "min", "max", "onFocus"])}
-      />
+    <div id={id} style={st} className={cx(cn, { [className]: className, disabled: rest.disabled })}>
+      <input ref={ref} {...rest} type={_type} spellCheck="false" />
 
-      {props.type === "password" && (
+      {rest.type === "password" && (
         <button
           type="button"
           className={cx(cn.concat("__lock__icon"))}
           onClick={() => {
-            if (!disabled || !readonly) setType(type === "text" ? "password" : "text");
+            if (!rest.disabled || !rest.readOnly) setType(_type === "text" ? "password" : "text");
           }}>
-          {type === "text" ? <Icons.LockOpend /> : <Icons.LockClosed />}
+          {_type === "text" ? <LockOpend /> : <LockClosed />}
         </button>
       )}
     </div>
   );
 }
 
-const defautProps: N_Input.DefaultProps = {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  keyEnter(_value: string) { /* prettier-ignore */ },
-  onBlur() {  /* prettier-ignore */ },
-  type: "text",
-  className: "",
-  disabled: false,
-  error: "",
-};
+const ForwardInput = forwardRef<HTMLInputElement, N_Input.Props>(Input);
 
-Input.defaultProps = defautProps;
-
-export default Input;
+export default ForwardInput;

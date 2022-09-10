@@ -1,8 +1,13 @@
-import { N_Select } from "lib/@types";
 import React, { useContext } from "react";
+import { N_Select } from "lib/@types";
 import { SelectContext } from "./Select";
 
-type Props = { ref?: React.ForwardedRef<HTMLSelectElement>; name?: string; options: JSX.Element[] };
+type Props = {
+  innerRef?: React.ForwardedRef<HTMLSelectElement>;
+  name?: string;
+  options: JSX.Element[];
+  onChange: any;
+};
 
 function Semantic(props: Props) {
   const {
@@ -13,12 +18,15 @@ function Semantic(props: Props) {
   return (
     <select
       value={value as N_Select.value & ReadonlyArray<string>}
-      hidden
-      aria-hidden
-      aria-readonly
-      ref={props.ref}
+      // hidden
+      // aria-hidden
+      // aria-readonly
+      ref={props.innerRef}
       name={props.name}
-      onChange={() => { /* prettier-ignore */ }}
+      onChange={(e) => {
+        console.log(e);
+        props.onChange(e);
+      }}
       multiple={multiple}>
       {!selected.size && <option value={undefined} />}
       {props.options.map((el, i: number) => {
@@ -32,6 +40,6 @@ function Semantic(props: Props) {
   );
 }
 
-Semantic.defaultProps = { ref: undefined, name: undefined };
+Semantic.defaultProps = { innerRef: undefined, name: undefined };
 
 export default Semantic;

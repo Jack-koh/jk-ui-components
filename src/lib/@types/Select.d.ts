@@ -8,15 +8,12 @@ export declare namespace N_Select {
     id?: string;
     label?: string;
     className?: string;
-    onChange?: onChange;
+    onChange?: onChange | FormEventHandler<T> | undefined;
     disabled?: { value: boolean; shouldKeepValue?: boolean } | boolean;
     transition?: boolean;
     children: React.ReactNode[];
-    multiple?: boolean;
-    name?: string;
     height?: number;
     width?: number;
-    ref?: React.ForwardedRef<HTMLSelectElement>;
   };
 
   type Data = {
@@ -26,10 +23,11 @@ export declare namespace N_Select {
     disabled?: boolean;
   };
 
-  type DefaultProps = Required<
-    Pick<Parameter, "className" | "onChange" | "disabled" | "transition" | "multiple">
-  >;
-  type Props = Parameter & DefaultProps;
+  type Props = React.DetailedHTMLProps<
+    React.SelectHTMLAttributes<HTMLSelectElement>,
+    HTMLSelectElement
+  > &
+    Parameter;
 
   namespace Summary {
     type Parameter = {

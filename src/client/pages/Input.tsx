@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import { Input } from "lib/module/lib";
+import React from "react";
+import { Input } from "client/components";
+import { Content } from "client/layout";
 
 function InputPage() {
-  const [value, setValue] = useState("안녕하세요요");
   return (
-    <div style={{ padding: "10px 20px", width: "100%", height: "100%" }}>
-      <div>
-        <Input value={value} onChange={(e: any) => setValue(e.target.value)} />
-      </div>
-      <div>
-        <Input disabled />
-      </div>
-      <div>
-        <Input type="password" />
-      </div>
-      <div>
-        <Input error="error" />
-      </div>
-    </div>
+    <Content>
+      <Content.Docs title="Input">
+        <Content.Docs.Article heading="Basic">
+          <Input.Basic />
+        </Content.Docs.Article>
+      </Content.Docs>
+    </Content>
   );
 }
 
