@@ -13,7 +13,7 @@ interface State {
 
 const initialState: State = { expanded: true };
 const reducer = (state: State, action: Action) => {
-  return produce(state, (draft) => {
+  return produce(state, (draft: State) => {
     switch (action.type) {
       case "expanded":
         draft["expanded"] = action.payload;
@@ -48,22 +48,22 @@ function Navigator() {
         <Accordion.Collapse>
           <NavLink to="/components/react-accordion">accordion</NavLink>
           <NavLink to="/components/react-alert">alert</NavLink>
-          <NavLink to="/components/react-autoComplete">autoComplete</NavLink>
+          {/* <NavLink to="/components/react-autoComplete">autoComplete</NavLink> */}
           <NavLink to="/components/react-button">button</NavLink>
           <NavLink to="/components/react-checkBox">checkBox</NavLink>
-          <NavLink to="/components/react-dropZone">dropZone</NavLink>
+          {/* <NavLink to="/components/react-dropZone">dropZone</NavLink> */}
           <NavLink to="/components/react-input">input</NavLink>
-          <NavLink to="/components/react-loading">loading</NavLink>
+          {/* <NavLink to="/components/react-loading">loading</NavLink> */}
           <NavLink to="/components/react-modal">modal</NavLink>
-          <NavLink to="/components/react-noData">noData</NavLink>
-          <NavLink to="/components/react-pagination">pagination</NavLink>
+          {/* <NavLink to="/components/react-noData">noData</NavLink> */}
+          {/* <NavLink to="/components/react-pagination">pagination</NavLink> */}
           <NavLink to="/components/react-popover">popover</NavLink>
           <NavLink to="/components/react-radio">radio</NavLink>
-          <NavLink to="/components/react-resizer">resizer</NavLink>
-          <NavLink to="/components/react-search">search</NavLink>
+          {/* <NavLink to="/components/react-resizer">resizer</NavLink> */}
+          {/* <NavLink to="/components/react-search">search</NavLink> */}
           <NavLink to="/components/react-select">select</NavLink>
-          <NavLink to="/components/react-slider">slider</NavLink>
-          <NavLink to="/components/react-switch">switch</NavLink>
+          {/* <NavLink to="/components/react-slider">slider</NavLink> */}
+          {/* <NavLink to="/components/react-switch">switch</NavLink> */}
           <NavLink to="/components/react-table">table</NavLink>
           <NavLink to="/components/react-textArea">textArea</NavLink>
           <NavLink to="/components/react-toolTip">toolTip</NavLink>

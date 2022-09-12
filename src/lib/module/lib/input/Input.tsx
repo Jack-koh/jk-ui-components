@@ -1,32 +1,24 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
 import { cx } from "lib/module/lib/functions";
-import { LockOpend, LockClosed } from "lib/module/lib/Icons";
+import Icon from "./Icon";
 import { N_Input } from "lib/@types";
 
-const cn = "jk__input";
+export const cn = "jk__input";
 
-function Input(props: N_Input.Props, ref?: React.ForwardedRef<HTMLInputElement>) {
-  const { id, st, className = "", ...rest } = props;
-  const [_type, setType] = useState(rest.type);
+function Input(props: N_Input.Props) {
+  const { id, st, inputRef, type, className, ...rest } = props;
+  const _className = cx(cn, { [className]: className, disabled: props.disabled });
+  const [_type, setType] = useState(type);
 
   return (
-    <div id={id} style={st} className={cx(cn, { [className]: className, disabled: rest.disabled })}>
-      <input ref={ref} {...rest} type={_type} spellCheck="false" />
-
-      {rest.type === "password" && (
-        <button
-          type="button"
-          className={cx(cn.concat("__lock__icon"))}
-          onClick={() => {
-            if (!rest.disabled || !rest.readOnly) setType(_type === "text" ? "password" : "text");
-          }}>
-          {_type === "text" ? <LockOpend /> : <LockClosed />}
-        </button>
-      )}
+    <div id={id} style={st} className={_className}>
+      <input {...rest} ref={inputRef} type={_type} spellCheck="false" />
+      {type === "password" && <Icon setType={setType} type={_type} />}
     </div>
   );
 }
 
-const ForwardInput = forwardRef<HTMLInputElement, N_Input.Props>(Input);
+const defaultProps: N_Input.DefaultProps = { className: "" };
+Input.defaultProps = defaultProps;
 
-export default ForwardInput;
+export default Input;

@@ -29,7 +29,7 @@ export function Custom() {
             <Select.Item title="Jelly Bean" value="1">
               {({ selected }) => (
                 <div>
-                  <CheckBox checked={selected ? 1 : 0} />
+                  <CheckBox checked={selected} />
                   <span>Jelly Bean</span>
                 </div>
               )}
@@ -37,7 +37,7 @@ export function Custom() {
             <Select.Item title="KitKat" value="2">
               {({ selected }) => (
                 <div>
-                  <CheckBox checked={selected ? 1 : 0} />
+                  <CheckBox checked={selected} />
                   <span>KitKat</span>
                 </div>
               )}
@@ -45,7 +45,7 @@ export function Custom() {
             <Select.Item title="Lollipop" value="3">
               {({ selected }) => (
                 <div>
-                  <CheckBox checked={selected ? 1 : 0} />
+                  <CheckBox checked={selected} />
                   <span>Lollipop</span>
                 </div>
               )}

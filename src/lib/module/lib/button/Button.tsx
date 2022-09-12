@@ -12,8 +12,8 @@ function Button(props: N_Button.Props) {
     props;
 
   const onClickHandler = (e: React.MouseEvent) => {
-    if (ripple && rippleRef.current) rippleHandler(e, rippleRef.current);
     onClick(e);
+    if (ripple && rippleRef.current) rippleHandler(e, rippleRef.current);
   };
 
   return (

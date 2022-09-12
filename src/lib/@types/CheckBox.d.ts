@@ -5,16 +5,19 @@ export declare namespace N_CheckBox {
     className?: string;
     disabled?: boolean;
     st?: React.CSSProperties;
-    defaultValue?: boolean;
     checked?: boolean;
     indeterminate?: boolean;
-    onChange?: (check: boolean) => void;
     name?: string;
-    ref?: React.ForwardedRef<HTMLInputElement>;
+    inputRef?: React.ForwardedRef<HTMLInputElement>;
   };
 
-  type DefaultProps = Required<
-    Pick<Parameter, "className" | "disabled" | "indeterminate" | "defaultValue">
+  type InputProps = React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
   >;
-  type Props = Parameter & DefaultProps;
+
+  type DefaultProps = Required<
+    Pick<Parameter, "className" | "disabled" | "indeterminate" | "defaultChecked">
+  >;
+  type Props = InputProps & Parameter & DefaultProps;
 }

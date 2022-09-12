@@ -2,11 +2,13 @@ export declare namespace N_Input {
   type Parameter = {
     st?: React.CSSProperties;
     className?: string;
+    inputRef?: React.ForwardedRef<HTMLInputElement>;
   };
 
-  type Props = React.DetailedHTMLProps<
+  type DefaultProps = Required<Pick<Parameter, "className">>;
+  type InputProps = React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement
-  > &
-    Parameter;
+  >;
+  type Props = InputProps & Parameter & DefaultProps;
 }

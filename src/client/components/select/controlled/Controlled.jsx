@@ -17,6 +17,8 @@ export function Controlled() {
     setSelectedList(value);
   };
 
+  console.log({ selected, selectedList });
+
   return (
     <Ex source={source}>
       <div style={{ display: "flex", justifyContent: "space-around", gap: 20, flexWrap: "wrap" }}>

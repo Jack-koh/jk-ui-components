@@ -5,7 +5,7 @@ const removeChildren = (target: HTMLDivElement) => {
   const children = target.querySelectorAll(".jk__button__ripple__circle");
   if (children.length) target.innerHTML = "";
 };
-const timer = debounce(removeChildren, 600);
+const timer = debounce(removeChildren, 2000);
 
 export const rippleHandler = async (e: React.MouseEvent, target: HTMLDivElement) => {
   timer.cancel();

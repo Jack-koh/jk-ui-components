@@ -18,8 +18,8 @@ function Summary(props: N_Select.Summary.Props) {
   }, []);
 
   return (
-    <div role="button" tabIndex={0} className={cx(cn.concat("__button"))} title={label}>
-      <div className={cx(cn.concat("__button__title"))}>
+    <div className={cx(cn.concat("__summary"))} title={label}>
+      <div className={cx(cn.concat("__summary__title"))}>
         {selected.size ? (
           label
         ) : isMounted.current ? (
@@ -28,7 +28,7 @@ function Summary(props: N_Select.Summary.Props) {
           ""
         )}
       </div>
-      <ArrowDown className={cx(cn.concat("__icon"))} />
+      <ArrowDown className={cx(cn.concat("__summary__icon"))} />
     </div>
   );
 }

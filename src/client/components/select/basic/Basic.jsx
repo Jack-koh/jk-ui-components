@@ -46,6 +46,15 @@ export function Basic() {
             <Select.Item title="Thirty" value="Thirty" />
           </Select.Options>
         </Select>
+
+        <Select label="Error" className="error">
+          <Select.Summary />
+          <Select.Options>
+            <Select.Item title="Ten" value="Ten" />
+            <Select.Item title="Twenty" value="Twenty" />
+            <Select.Item title="Thirty" value="Thirty" />
+          </Select.Options>
+        </Select>
       </div>
     </Ex>
   );

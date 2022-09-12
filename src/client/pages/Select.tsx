@@ -6,9 +6,7 @@ function SelectPage() {
   return (
     <Content>
       <Content.Docs title="Select">
-        <Content.Docs.Article
-          heading="Basic"
-          description="기본 형태의 Select 입니다. selected props로 default 값을 세팅할수 있습니다.">
+        <Content.Docs.Article heading="Basic" description="기본 형태의 Select 입니다.">
           <Select.Basic />
         </Content.Docs.Article>
 

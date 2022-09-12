@@ -9,13 +9,11 @@ import Options from "./options/Options";
 import Summary from "./Summary";
 import Item from "./Item";
 import { pick, isObject } from "lodash";
-import Semantic from "./Semantic";
 import { getElement } from "./selectFunc";
 
 export const cn = "jk__select";
 
 type Context = {
-  value: N_Select.value;
   anchor: HTMLDivElement | null;
   state: { toggle: boolean; selected: Map<number, N_Select.Data> };
   setState: {
@@ -29,7 +27,6 @@ type Context = {
 };
 
 const initialContext: Context = {
-  value: "",
   anchor: null,
   state: { toggle: false, selected: new Map() },
   setState: {
@@ -44,19 +41,8 @@ const initialContext: Context = {
 
 export const SelectContext = createContext(initialContext);
 
-function Select(props: N_Select.Props, ref?: React.ForwardedRef<HTMLSelectElement>) {
-  const {
-    id,
-    className = "",
-    multiple = false,
-    disabled = false,
-    transition = true,
-    children,
-    width,
-    height,
-    label,
-    name,
-  } = props;
+function Select(props: N_Select.Props) {
+  const { id, className, disabled, children, width, height, label } = props;
   const wrapperRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<HTMLDivElement>(null);
   const [toggle, setToggle] = useState(false);
@@ -75,22 +61,14 @@ function Select(props: N_Select.Props, ref?: React.ForwardedRef<HTMLSelectElemen
   }, [disabled]);
   const { Summary, Options } = getElement(children);
 
-  const value = multiple
-    ? ([...selected].map((el) => el[1].value?.toString()) as ReadonlyArray<string>)
-    : selected.size
-    ? [...selected.values()][0].value
-    : "";
-
   const _disabled = isObject(disabled) ? disabled.value : disabled;
 
   const provide = {
-    value,
     state: { toggle, selected },
     setState: { setToggle, setSelected },
     anchor: anchorRef.current,
     disabled: _disabled,
-    transition,
-    ...pick(props, ["multiple", "onChange"]),
+    ...pick(props, ["multiple", "onChange", "transition"]),
   };
 
   return (
@@ -100,34 +78,32 @@ function Select(props: N_Select.Props, ref?: React.ForwardedRef<HTMLSelectElemen
         ref={wrapperRef}
         id={id}
         className={cx(cn, { [className]: className, disabled: _disabled, active: toggle })}>
-        <label className={cx(cn.concat("__label"))} htmlFor={name}>
-          {label}
-        </label>
-        <Render ref={anchorRef} onClick={() => !_disabled && setToggle(!toggle)}>
+        <label className={cx(cn.concat("__label"))}>{label}</label>
+        <Render
+          ref={anchorRef}
+          role="button"
+          tabIndex={0}
+          onKeyPress={() => !_disabled && setToggle(!toggle)}
+          onClick={() => !_disabled && setToggle(!toggle)}>
           {Summary}
         </Render>
         {Options}
-        <Semantic
-          innerRef={ref}
-          name={name}
-          options={Options.props.children}
-          onChange={props.onChange as any}
-        />
       </div>
     </SelectContext.Provider>
   );
 }
 
-const foward = forwardRef<HTMLSelectElement, N_Select.Props>(Select);
-type ForwardSelect = typeof foward & {
-  Summary: typeof Summary;
-  Options: typeof Options;
-  Item: typeof Item;
+const defaultProps: N_Select.DefaultProps = {
+  className: "",
+  multiple: false,
+  disabled: false,
+  transition: true,
 };
 
-const ForwardSelect = foward as ForwardSelect;
-ForwardSelect.Summary = Summary;
-ForwardSelect.Options = Options;
-ForwardSelect.Item = Item;
+Select.defaultProps = defaultProps;
 
-export default ForwardSelect;
+Select.Summary = Summary;
+Select.Options = Options;
+Select.Item = Item;
+
+export default Select;

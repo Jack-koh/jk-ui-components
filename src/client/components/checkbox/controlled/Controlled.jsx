@@ -4,14 +4,20 @@ import { Ex } from "client/layout";
 import source from "./source";
 
 export function Controlled() {
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(true);
   const [proxy, setProxy] = useState(false);
   const [indeterminate, setIndeterminate] = useState(false);
   return (
     <Ex source={source}>
       <React.Fragment>
         <div style={{ display: "flex", justifyContent: "space-around", gap: "20px" }}>
-          <CheckBox label={`${checked}`} checked={checked} onChange={() => setChecked(!checked)} />
+          <CheckBox
+            label={`${checked}`}
+            checked={checked}
+            onChange={(e) => {
+              setChecked(e.target.checked);
+            }}
+          />
 
           <div style={{ display: "flex", justifyContent: "space-around", gap: "20px" }}>
             <CheckBox checked={proxy} onChange={() => setProxy(!proxy)} />

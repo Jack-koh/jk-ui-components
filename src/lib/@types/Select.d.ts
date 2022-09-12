@@ -1,13 +1,19 @@
 import React from "react";
 
 export declare namespace N_Select {
-  type value = string | number | undefined | ReadonlyArray<string | number | undefined>;
+  type value =
+    | string
+    | number
+    | undefined
+    | Recorde<string, unknown>
+    | ReadonlyArray<string | number | undefined | Recorde<string, unknown>>;
 
   type onChange = (value: value) => void;
   type Parameter = {
     id?: string;
     label?: string;
     className?: string;
+    multiple?: boolean;
     onChange?: onChange | FormEventHandler<T> | undefined;
     disabled?: { value: boolean; shouldKeepValue?: boolean } | boolean;
     transition?: boolean;
@@ -16,6 +22,10 @@ export declare namespace N_Select {
     width?: number;
   };
 
+  type DefaultProps = Required<
+    Pick<Parameter, "className" | "multiple" | "disabled" | "transition">
+  >;
+
   type Data = {
     title: string;
     value: string | number | undefined;
@@ -23,11 +33,7 @@ export declare namespace N_Select {
     disabled?: boolean;
   };
 
-  type Props = React.DetailedHTMLProps<
-    React.SelectHTMLAttributes<HTMLSelectElement>,
-    HTMLSelectElement
-  > &
-    Parameter;
+  type Props = Parameter & DefaultProps;
 
   namespace Summary {
     type Parameter = {
@@ -51,7 +57,7 @@ export declare namespace N_Select {
     type Parameter = {
       index?: number;
       title?: string;
-      value?: string | number | undefined;
+      value?: value;
       options?: Data[];
       setOptions?: React.Dispatch<Data[]>;
       selected?: boolean;
