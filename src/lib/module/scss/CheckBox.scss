@@ -1,27 +1,59 @@
 @import "./utils.scss";
 
 @mixin Checked {
-  &.checked {
+  .jk__checkbox__check__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    display: none;
+  }
+
+  &:has(input[type="checkbox"]:checked) {
     .jk__checkbox__container {
       background-color: $blue;
       border-color: $blue;
+      .jk__checkbox__check__icon {
+        display: block;
+      }
     }
   }
 }
+
 @mixin Indeter {
+  .jk__checkbox__indeterminate__icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    display: none;
+  }
+
   &.indeter {
     .jk__checkbox__container {
       background-color: $blue;
       border-color: $blue;
+      .jk__checkbox__check__icon {
+        display: none !important;
+      }
+      .jk__checkbox__indeterminate__icon {
+        display: block;
+      }
     }
   }
 }
+
 @mixin Disabled {
-  &.disabled {
+  &:has(input[type="checkbox"]:disabled) {
     .jk__checkbox__container {
       background-color: $disabled-bg;
       border: $disabled-color;
-
       input {
         cursor: initial;
       }
@@ -38,19 +70,21 @@
     .jk__checkbox__container {
       border-color: $error;
     }
-    &.checked {
+
+    &:has(input[type="checkbox"]:checked) {
       .jk__checkbox__container {
         background-color: $error;
+        border-color: $error;
       }
     }
   }
 }
 
 .jk__checkbox {
+  @include Error;
   @include Checked;
   @include Indeter;
   @include Disabled;
-  @include Error;
   @include flex(center, initial);
   width: max-content;
   padding: 3px;
@@ -67,26 +101,6 @@
     flex-shrink: 0;
     border: 1px solid $border;
     background-color: #fff;
-
-    .jk__checkbox__check__icon {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
-    }
-
-    .jk__checkbox__indeterminate__icon {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      width: calc(100% + 2px);
-      height: calc(100% + 2px);
-    }
 
     input {
       position: absolute;

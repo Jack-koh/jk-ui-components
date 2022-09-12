@@ -1,23 +1,39 @@
 @import "./utils.scss";
 
+@mixin Disabled {
+  input:disabled {
+    background-color: $disabled-bg;
+    color: $disabled-color;
+  }
+}
+
+@mixin Error {
+  &.error input {
+    border-color: $error !important;
+  }
+}
+
+@mixin Focus {
+  input:focus {
+    border-color: $blue;
+  }
+}
+
+@mixin Password {
+  input[type="password"] {
+    padding-right: 36px;
+  }
+}
+
 .jk__input {
+  @include Disabled;
+  @include Error;
+  @include Focus;
+  @include Password;
   width: 300px;
   height: 40px;
   display: inline-block;
   position: relative;
-
-  &.disabled {
-    input {
-      background-color: $disabled-bg;
-      color: $disabled-color;
-    }
-  }
-
-  &.error {
-    input {
-      border-color: $error !important;
-    }
-  }
 
   input {
     width: inherit;
@@ -31,14 +47,6 @@
     font-family: inherit;
     border-radius: 4px;
     transition: all 300ms $cubic-bezier;
-
-    &:focus {
-      border-color: $blue;
-    }
-
-    &[type="password"] {
-      padding-right: 36px;
-    }
 
     &::placeholder {
       font-size: inherit;

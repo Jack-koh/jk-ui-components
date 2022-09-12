@@ -9,7 +9,7 @@ export function Basic() {
       <React.Fragment>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
           <CheckBox />
-          <CheckBox defaultChecked={true} />
+          <CheckBox indeterminate />
           <CheckBox checked={true} disabled />
           <CheckBox disabled />
           <CheckBox className="error" />

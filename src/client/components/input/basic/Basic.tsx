@@ -9,6 +9,9 @@ export function Basic() {
       source={source}
       st={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
       <Input />
+      <Input type="password" />
+      <Input className="error" />
+      <Input disabled />
     </Ex>
   );
 }
