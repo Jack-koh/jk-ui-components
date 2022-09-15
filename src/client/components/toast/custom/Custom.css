@@ -1,0 +1,21 @@
+.jk_toast__wrapper.bottom-center {
+  width: 300px;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.jk_toast__wrapper.bottom-center .jk_toast__list .jk_toast__text {
+  height: 60px;
+  background-color: #7b1fa2 !important;
+}
+
+.jk_toast__wrapper.bottom-center .jk_toast__list .jk_toast__text svg {
+  color: #fff;
+}
+
+.jk_toast__wrapper.bottom-center .jk_toast__text span {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}

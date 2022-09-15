@@ -9,12 +9,11 @@ import "./Example.scss";
 type Props = {
   st?: React.CSSProperties;
   children: React.ReactNode;
-  source: { jsx?: string; css?: string };
+  source?: { jsx?: string; css?: string };
   theme?: "light" | "dark" | "gray";
 };
 
 function Ex(props: Props) {
-  const { jsx, css } = props.source;
   const [expanded, setExpanded] = useState(false);
   const [view, setView] = useState("js");
 
@@ -26,37 +25,39 @@ function Ex(props: Props) {
       <div className="example-content" style={props.st}>
         {props.children}
       </div>
-      <Accordion className="utils" expanded={expanded}>
-        <Accordion.Summary>
-          <div className={cx("tabs", { show: !!expanded })}>
-            <Javascript
-              className={cx({ active: view === "js" })}
-              role="button"
-              tabIndex={0}
-              onClick={showJs}
-              onKeyPress={showJs}
-            />
-            {css && (
-              <Css
-                className={cx({ active: view === "css" })}
+      {props.source && (
+        <Accordion className="utils" expanded={expanded}>
+          <Accordion.Summary>
+            <div className={cx("tabs", { show: !!expanded })}>
+              <Javascript
+                className={cx({ active: view === "js" })}
                 role="button"
                 tabIndex={0}
-                onKeyPress={showCss}
-                onClick={showCss}
+                onClick={showJs}
+                onKeyPress={showJs}
               />
-            )}
-          </div>
-          <Code className="code-icon" onClick={() => setExpanded(!expanded)} />
-        </Accordion.Summary>
-        <Accordion.Collapse st={{ maxHeight: 900 }}>
-          {view === "js" && <CodeMirror value={jsx} />}
-          {view === "css" && <CodeMirror mode="css" value={css} />}
-        </Accordion.Collapse>
-      </Accordion>
+              {props.source.css && (
+                <Css
+                  className={cx({ active: view === "css" })}
+                  role="button"
+                  tabIndex={0}
+                  onKeyPress={showCss}
+                  onClick={showCss}
+                />
+              )}
+            </div>
+            <Code className="code-icon" onClick={() => setExpanded(!expanded)} />
+          </Accordion.Summary>
+          <Accordion.Collapse st={{ maxHeight: 900 }}>
+            {view === "js" && <CodeMirror value={props.source.jsx} />}
+            {view === "css" && <CodeMirror mode="css" value={props.source.css} />}
+          </Accordion.Collapse>
+        </Accordion>
+      )}
     </div>
   );
 }
 
-Ex.defaultProps = { source: { jsx: "", scss: "" }, theme: "light", st: undefined };
+Ex.defaultProps = { source: undefined, theme: "light", st: undefined };
 
 export default Ex;

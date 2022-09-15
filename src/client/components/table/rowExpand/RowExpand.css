@@ -1,0 +1,12 @@
+#row-expand-table .jk__accordion {
+  border-radius: 0;
+}
+
+#row-expand-table .jk__table__row {
+  height: auto;
+}
+
+#row-expand-table .jk__accordion__summary .jk__accordion__icon {
+  position: absolute;
+  right: 30px;
+}

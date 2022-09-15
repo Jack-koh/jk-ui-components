@@ -1,3 +1,5 @@
+import React from "react";
+
 export declare namespace N_Radio {
   type Parameter<T> = {
     text?: string;
@@ -12,10 +14,11 @@ export declare namespace N_Radio {
   namespace Group {
     type Parameter<T> = {
       children: JSX.Element[];
-      value: T;
+      value?: T;
       onChange?(param: T): void;
       className?: string;
       disabled?: boolean;
+      st?: React.CSSProperties;
     };
 
     type DefaultProps<T> = Required<Pick<Parameter<T>, "className" | "disabled">>;

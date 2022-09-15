@@ -6,17 +6,17 @@ export declare namespace N_Modal {
     transition?: boolean;
     children?: JSX.Element;
     content?: Content;
+    clickOutside?: boolean;
   };
 
-  type DefaultProps = Required<Pick<Parameter, "transition" | "disabled" | "children" | "content">>;
+  type DefaultProps = Required<
+    Pick<Parameter, "transition" | "disabled" | "children" | "content" | "clickOutside">
+  >;
   type Props = Parameter & DefaultProps;
   type Content = (props: { closeHandler: () => void }) => JSX.Element;
 
   namespace Portal {
-    type Props = {
-      content: Content;
-      setToggle: (toggle: boolean) => void;
-    };
+    type Props = { setToggle: (toggle: boolean) => void } & Props;
   }
 
   namespace Summary {

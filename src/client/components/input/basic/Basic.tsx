@@ -7,11 +7,11 @@ export function Basic() {
   return (
     <Ex
       source={source}
-      st={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <Input />
-      <Input type="password" />
-      <Input className="error" />
-      <Input disabled />
+      st={{ display: "flex", justifyContent: "space-around", gap: 20, flexWrap: "wrap" }}>
+      <Input placeholder="placeholder" label="Placeholder" />
+      <Input type="password" label="Password" />
+      <Input className="error" label="Error" />
+      <Input disabled label="Disabled" />
     </Ex>
   );
 }

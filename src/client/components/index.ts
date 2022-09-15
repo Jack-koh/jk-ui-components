@@ -1,6 +1,10 @@
 export * as Accordion from "./accordion";
-export * as Alert from "./alert";
+export * as Toast from "./toast";
 export * as Button from "./button";
 export * as CheckBox from "./checkbox";
 export * as Select from "./select";
 export * as Input from "./input";
+export * as Modal from "./modal";
+export * as Popover from "./popover";
+export * as Radio from "./radio";
+export * as Table from "./table";

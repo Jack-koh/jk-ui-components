@@ -14,11 +14,11 @@
       @include flex(center, center);
       height: 28px;
       border-radius: 3px;
-      cursor: pointer;
       transition: all 0.1s;
+      border: none;
     }
 
-    .jk__left__arrow {
+    .jk__pagination__left__arrow {
       @include page-button;
       width: 20px;
       i {
@@ -27,7 +27,8 @@
         background: url("/lib/module/assets/pagination_left.svg") no-repeat center;
       }
     }
-    .jk__left__arrow__start {
+
+    .jk__pagination__left__arrow__start {
       @include page-button;
       width: 20px;
       i {
@@ -36,7 +37,8 @@
         background: url("/lib/module/assets/pagination_left_end.svg") no-repeat center;
       }
     }
-    .jk__right__arrow {
+
+    .jk__pagination__right__arrow {
       @include page-button;
       width: 20px;
       i {
@@ -45,7 +47,8 @@
         background: url("/lib/module/assets/pagination_right.svg") no-repeat center;
       }
     }
-    .jk__right__arrow__end {
+
+    .jk__pagination__right__arrow__end {
       @include page-button;
       width: 20px;
       i {
@@ -55,16 +58,17 @@
       }
     }
 
-    .jk__page__items {
+    .jk__pagination__items {
       @include flex(center, center);
       margin: 0 6px;
-      .pagination-item {
+      .jk__pagination__item {
         @include page-button;
         width: 32px;
         font-size: 13px;
         color: #c5c6ca;
         font-weight: 700;
         margin: 0 2px;
+        cursor: pointer;
 
         &.active {
           color: #191919;

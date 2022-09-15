@@ -35,7 +35,6 @@ body.table__resizing {
       }
       ul.jk__table__head {
         @include flex(center, initial);
-        min-width: 1000px;
         height: 32px;
         margin: 0;
         padding: 0;
@@ -73,6 +72,12 @@ body.table__resizing {
             .jk__table__order__icon {
               margin-left: 5px;
               transition: transform 150ms $cubic-bezier;
+              opacity: 0.3;
+
+              &.asc,
+              &.desc {
+                opacity: 1;
+              }
 
               &.asc {
                 transform: rotate(180deg);
@@ -113,14 +118,13 @@ body.table__resizing {
           height: 100%;
           margin: 0;
           padding: 0;
-          overflow: auto;
+          overflow: overlay;
 
           li.jk__table__row {
             height: 36px;
             div.jk__table__tr {
               @include flex(center, initial);
               width: 100%;
-              min-width: 1000px;
               height: 100%;
 
               div.jk__table__td {

@@ -1,20 +1,16 @@
-import React, { useState } from "react";
-import { Radio } from "lib/module/lib";
+import React from "react";
+import { Content } from "client/layout";
+import { Radio } from "client/components";
 
 function RadioPage() {
-  const [checked, setChecked] = useState(0);
   return (
-    <div>
-      <Radio.Group
-        value={checked}
-        onChange={(v) => {
-          console.log(v);
-          setChecked(v);
-        }}>
-        <Radio text="텍스트" value={2} />
-        <Radio text="첨부파일" value={3} />
-      </Radio.Group>
-    </div>
+    <Content>
+      <Content.Docs title="Radio">
+        <Content.Docs.Article heading="Basic">
+          <Radio.Basic />
+        </Content.Docs.Article>
+      </Content.Docs>
+    </Content>
   );
 }
 

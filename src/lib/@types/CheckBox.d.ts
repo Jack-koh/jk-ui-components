@@ -16,6 +16,5 @@ export declare namespace N_CheckBox {
     HTMLInputElement
   >;
 
-  type DefaultProps = Required<Pick<Parameter, "className" | "disabled" | "indeterminate">>;
-  type Props = InputProps & Parameter & DefaultProps;
+  type Props = InputProps & Parameter;
 }

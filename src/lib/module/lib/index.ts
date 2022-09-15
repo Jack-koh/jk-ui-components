@@ -1,5 +1,5 @@
 export { default as Accordion } from "./accordion/Accordion";
-export { default as Alert } from "./alert/Alert";
+export { default as Toast } from "./toast/Toast";
 export { AutoComplete } from "./autoComplete/AutoComplete";
 export { default as Button } from "./button/Button";
 export { default as CheckBox } from "./checkbox/CheckBox";

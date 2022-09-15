@@ -3,7 +3,7 @@ export declare namespace N_Popover {
   type Parameter = {
     children?: JSX.Element;
     content: Content;
-    position?: Position;
+    position?: Position | string;
     className?: string;
     gap?: number;
     disabled?: boolean;

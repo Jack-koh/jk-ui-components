@@ -62,7 +62,7 @@ function Accordion(props: N_Accordion.Props) {
     return result;
   })();
 
-  const { id, transition, disabled, className, rowToggle } = props;
+  const { id, st, transition, disabled, className, rowToggle } = props;
 
   /*
     UnControlled
@@ -75,7 +75,13 @@ function Accordion(props: N_Accordion.Props) {
         외부상태와 바인딩이 이루어져야 한다.
   */
   const [expanded, onChange] = useControl({ state: props.expanded, dispatcher: props.onChange });
-
+  const collapse = <div className={cx(cn.concat("__transition"))}>{Element.Collapse}</div>;
+  const origin = expanded && collapse;
+  const transitional = transition && (
+    <CSSTransition in={expanded} mountOnEnter unmountOnExit timeout={500}>
+      {collapse}
+    </CSSTransition>
+  );
   return (
     <AccordionContext.Provider
       value={{
@@ -86,11 +92,9 @@ function Accordion(props: N_Accordion.Props) {
           if (!disabled) onChange(expanded);
         },
       }}>
-      <div id={id} className={cx(cn, { [className]: className, expanded, disabled })}>
+      <div id={id} style={st} className={cx(cn, { [className]: className, expanded, disabled })}>
         {Element.Summary}
-        <CSSTransition in={expanded} mountOnEnter unmountOnExit timeout={transition ? 500 : 0}>
-          <div className={cx(cn.concat("__transition"))}>{Element.Collapse}</div>
-        </CSSTransition>
+        {transition ? transitional : origin}
       </div>
     </AccordionContext.Provider>
   );

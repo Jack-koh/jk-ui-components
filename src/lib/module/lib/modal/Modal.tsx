@@ -10,12 +10,20 @@ import * as Layout from "./Layout";
 export const cn = "jk__modal";
 
 function Modal(props: N_Modal.Props) {
-  const { children, content, disabled, transition } = props;
+  const { children, disabled, transition } = props;
   const [toggle, setToggle] = useControl({
     state: props.toggle,
     dispatcher: props.onChange,
     default: false,
   });
+
+  const portal = <Portal {...props} setToggle={setToggle} />;
+  const origin = toggle && portal;
+  const transitional = transition && (
+    <CSSTransition in={toggle} unmountOnExit timeout={100}>
+      {portal}
+    </CSSTransition>
+  );
 
   return (
     <>
@@ -26,10 +34,7 @@ function Modal(props: N_Modal.Props) {
         }}>
         {children}
       </Render>
-
-      <CSSTransition in={toggle} unmountOnExit timeout={transition ? 100 : 0}>
-        <Portal content={content} setToggle={setToggle} />
-      </CSSTransition>
+      {transition ? transitional : origin}
     </>
   );
 }
@@ -38,6 +43,7 @@ const defaultProps: N_Modal.DefaultProps = {
   transition: true,
   disabled: false,
   children: <></>,
+  clickOutside: false,
   // eslint-disable-next-line
   content: (_args: { closeHandler: () => void }) => <></>,
 };

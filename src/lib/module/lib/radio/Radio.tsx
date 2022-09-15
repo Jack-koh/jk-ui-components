@@ -8,15 +8,14 @@ import { N_Radio } from "lib/@types";
 const cn = "jk__radio";
 
 function RadioGroup<T>(props: N_Radio.Group.Props<T>): JSX.Element {
-  const { children, value, className, disabled } = props;
+  const { children, value, className, disabled, st } = props;
   const [checked, onChange] = useControl({ state: value, dispatcher: props.onChange });
 
   return (
-    <div className={cx(cn.concat("__group"), { [className]: className, disabled })}>
+    <div style={st} className={cx(cn.concat("__group"), { [className]: className, disabled })}>
       {ChildMap(children, (child, index) => {
         if (child.type.displayName !== "JK_RADIO") {
           console.warn("Radio 컴포넌트만 Group에 사용할수 있습니다.");
-          return <></>;
         }
 
         const onClick = () => {
@@ -39,23 +38,22 @@ function RadioGroup<T>(props: N_Radio.Group.Props<T>): JSX.Element {
   );
 }
 
-const groupDefaultProps: N_Radio.Group.DefaultProps<unknown> = {
-  className: "",
-  disabled: false,
-};
+const groupDefaultProps: N_Radio.Group.DefaultProps<unknown> = { className: "", disabled: false };
 RadioGroup.defaultProps = groupDefaultProps;
 
 function Radio<T>(props: N_Radio.Props<T>) {
   const { text, className, disabled, checked } = props;
 
   return (
-    <div className={cx(cn.concat("__item"), { [className]: className, disabled, checked })}>
-      <div className={cx(cn.concat("__box"), { [className]: className })}>
-        {checked && <Icons.RadioChecked />}
-        {!checked && <Icons.RadioCircle />}
-        <span className={cx(cn.concat("__text"))}>{text}</span>
+    <>
+      <div className={cx(cn.concat("__item"), { [className]: className, disabled, checked })}>
+        <div className={cx(cn.concat("__box"), { [className]: className })}>
+          {checked && <Icons.RadioChecked />}
+          {!checked && <Icons.RadioCircle />}
+          <span className={cx(cn.concat("__text"))}>{text}</span>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

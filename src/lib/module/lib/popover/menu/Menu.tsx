@@ -11,6 +11,7 @@ export type Menu = N_Popover.Props & {
 
 function Menu(props: Menu) {
   const { state, disabled, anchor } = props;
+
   return (
     <>
       {props.children}

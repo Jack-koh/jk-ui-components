@@ -90,7 +90,8 @@ export const positionHandler = (params: {
 }): void => {
   const { gap, anchor, root } = params;
   let { position } = params;
-  if (!anchor) return console.warn("anchor 이 존재하지 않습니다");
+
+  if (!anchor) return console.warn("anchor 가 존재하지 않습니다");
   if (!root) return console.warn("root가 존재하지 않습니다");
   const anchorRect: DOMRect = anchor.getBoundingClientRect();
 

@@ -11,7 +11,7 @@ export declare namespace N_Select {
   type onChange = (value: value) => void;
   type Parameter = {
     id?: string;
-    label?: string;
+    label?: string | JSX.Element;
     className?: string;
     multiple?: boolean;
     onChange?: onChange | FormEventHandler<T> | undefined;

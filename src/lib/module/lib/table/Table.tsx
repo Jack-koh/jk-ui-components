@@ -43,15 +43,14 @@ function Table(props: N_Table.Props) {
           displayName?: string;
         };
         if (displayName === "JK__TABLE__HEAD") result.Head = child;
-        else if (displayName === "JK__TABLE__BODY") {
-          result.Body = child;
-        } else warn();
+        else if (displayName === "JK__TABLE__BODY") result.Body = child;
+        else warn();
       } else warn();
     });
     return result;
   })();
 
-  const { loading, resize } = props;
+  const { id, loading, resize, st } = props;
   const headerRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLUListElement>(null);
   const [state, setState] = useReducer(reducer, initialState);
@@ -82,7 +81,7 @@ function Table(props: N_Table.Props) {
 
   return (
     <TableContext.Provider value={{ resize, state, setState, order: Element.Head.props.order }}>
-      <div className={cx(cn)}>
+      <div style={st} id={id} className={cx(cn)}>
         <div className={cx(cn.concat("__wrapper"))}>
           <div ref={headerRef} className={cx(cn.concat("__header__wrapper"))}>
             <ul className={cx(cn.concat("__head"))}>{Element.Head}</ul>

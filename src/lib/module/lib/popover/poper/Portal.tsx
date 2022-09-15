@@ -6,6 +6,7 @@ import { useClickOutSide } from "lib/module/lib/hook";
 import { cn } from "../Popover";
 import { positionHandler as p } from "lib/module/lib/functions";
 import { Poper } from "./Poper";
+import { Position } from "lib/@types";
 
 function Portal(props: Poper & { anchor: Element }) {
   const { state, content, position, gap, anchor, className, clickInside, clickOutside } = props;
@@ -30,7 +31,12 @@ function Portal(props: Poper & { anchor: Element }) {
 
   useEffect(() => {
     if (ref.current) {
-      const positionHandler = p.bind(null, { position, gap, anchor, root: ref.current });
+      const positionHandler = p.bind(null, {
+        position: position as Position,
+        gap,
+        anchor,
+        root: ref.current,
+      });
       if (props.state.toggle) {
         positionHandler();
 

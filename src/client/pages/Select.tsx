@@ -1,6 +1,7 @@
 import React from "react";
-import { Content } from "client/layout";
+
 import { Select } from "client/components";
+import { Content } from "client/layout";
 
 function SelectPage() {
   return (

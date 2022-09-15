@@ -5,6 +5,7 @@ import { useClickOutSide } from "lib/module/lib/hook";
 import { cn } from "../Popover";
 import { positionHandler as p } from "lib/module/lib/functions";
 import { Menu } from "./Menu";
+import { Position } from "lib/@types";
 
 function Portal(props: Menu & { anchor: Element }) {
   const { state, content, position, gap, anchor, clickInside, clickOutside, className } = props;
@@ -17,7 +18,7 @@ function Portal(props: Menu & { anchor: Element }) {
 
   useClickOutSide({
     toggle: clickOutside,
-    target: [ref.current],
+    target: [anchor, ref.current],
     closeHandler,
   });
 
@@ -29,7 +30,12 @@ function Portal(props: Menu & { anchor: Element }) {
   };
 
   useEffect(() => {
-    const positionHandler = () => p.bind(null, { position, gap, anchor, root: ref.current });
+    const positionHandler = p.bind(null, {
+      position: position as Position,
+      gap,
+      anchor,
+      root: ref.current,
+    });
 
     if (toggle) {
       positionHandler();

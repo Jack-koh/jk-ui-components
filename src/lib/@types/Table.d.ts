@@ -1,10 +1,22 @@
 import React, { Dispatch } from "react";
+import { N_CheckBox } from "lib/@types";
 
 export declare namespace N_Table {
-  type Sort = Record<string, "DESC" | "ASC">;
+  type Sort = Record<string, "desc" | "asc">;
   type Order = {
     sort: Sort;
     onChange: (sort: Sort) => void;
+  };
+
+  type Header = {
+    title: string;
+    property: string;
+    order?: boolean;
+    toolTip?: boolean;
+    align?: string;
+    width?: number;
+    flex?: number;
+    hidden?: boolean;
   };
 
   interface Context {
@@ -24,10 +36,12 @@ export declare namespace N_Table {
   // ===================== Table ========================
   type Parameter = {
     loading?: boolean;
+    id?: string;
     className?: string;
     children: React.ReactNode;
     resize?: boolean;
     order?: Order;
+    st?: React.CSSProperties;
   };
 
   type DefaultProps = Required<Pick<Parameter<unknown>, "loading" | "className" | "resize">>;
@@ -50,6 +64,7 @@ export declare namespace N_Table {
       data: Data[];
       order?: Order;
       children?: (payload: { column: Header }) => JSX.Element | string;
+      checkbox?: N_CheckBox.Props;
     };
   }
 
@@ -77,35 +92,34 @@ export declare namespace N_Table {
 
   // ===================== TD ========================
   namespace Td {
-    type Props = {
+    type Props<T> = {
       column: Header;
-      value: string;
+      value: T;
       children: React.ReactNode;
     };
   }
 
   namespace Row {
-    type Parameter<T> = {
+    type Parameter = {
       className?: string;
       children: JSX.Element;
       st?: React.CSSProperties;
-      data?: T;
-      index?: number;
     };
 
-    type DefaultProps = Required<Pick<Parameter<Record<string, string>>, "className", "data">>;
-    type Props<T> = Parameter<T> & DefaultProps & React.MouseEventHandler;
+    type Props = Parameter &
+      React.DetailedHTMLProps<React.LiHTMLAttributes<HTMLLIElement>, HTMLLIElement>;
   }
 
   namespace Tr {
     type Parameter<T> = {
       className?: string;
-      data?: T;
+      checkbox?: N_CheckBox.Props;
+      data: T;
       st?: React.CSSProperties;
-      children?: (payload: { property: string; value: string | number }) => React.ReactNode;
+      children?: (payload: { property: string; value: T[keyof T] }) => React.ReactNode;
     };
 
     type DefaultProps = Required<Pick<Parameter<Record<string, string>>, "data">>;
-    type Props<T> = Parameter<T> & DefaultProps & React.MouseEventHandler;
+    type Props<T> = Parameter<T> & Partial<React.MouseEventHandler>;
   }
 }

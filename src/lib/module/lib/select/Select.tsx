@@ -78,7 +78,7 @@ function Select(props: N_Select.Props) {
         ref={wrapperRef}
         id={id}
         className={cx(cn, { [className]: className, disabled: _disabled, active: toggle })}>
-        <label className={cx(cn.concat("__label"))}>{label}</label>
+        {label && <label className={cx(cn.concat("__label"))}>{label}</label>}
         <Render
           ref={anchorRef}
           role="button"

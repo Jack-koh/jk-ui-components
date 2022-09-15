@@ -2,6 +2,7 @@ export declare namespace N_Input {
   type Parameter = {
     st?: React.CSSProperties;
     className?: string;
+    label?: string | JSX.Element;
     inputRef?: React.ForwardedRef<HTMLInputElement>;
   };
 

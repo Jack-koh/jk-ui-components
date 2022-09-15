@@ -9,6 +9,10 @@ function InputPage() {
         <Content.Docs.Article heading="Basic">
           <Input.Basic />
         </Content.Docs.Article>
+
+        <Content.Docs.Article heading="Controlled">
+          <Input.Controlled />
+        </Content.Docs.Article>
       </Content.Docs>
     </Content>
   );

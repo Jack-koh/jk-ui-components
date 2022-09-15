@@ -15,6 +15,7 @@ import { TableContext, cn } from "./Table";
 import { NoData } from "../index";
 import { resizeHandler } from "./resize";
 import * as Icons from "lib/module/lib/Icons";
+import { CheckBox } from "lib/module/lib";
 
 // Functions ##################################################
 const align = (column: N_Table.Head.Data) => {
@@ -33,8 +34,8 @@ export function Order(props: N_Table.Th.Order.Props) {
       const { sort } = order;
       const orderKey = keys(sort)[0];
       const ordering = sort[orderKey];
-      const desc = orderKey === property && ordering === "DESC";
-      const asc = orderKey === property && ordering === "ASC";
+      const desc = orderKey === property && ordering === "desc";
+      const asc = orderKey === property && ordering === "asc";
       return { desc, asc };
     }
     return { desc: true, asc: false };
@@ -53,9 +54,10 @@ export function Th(props: N_Table.Th.Props) {
     if (order && column.order) {
       const { sort, onChange } = order;
       const sortKey = keys(sort)[0];
-      let assign: "DESC" | "ASC" = "DESC";
-      assign = sort[sortKey] === "ASC" ? "DESC" : "ASC";
-      if (property !== sortKey) assign = "DESC";
+      let assign: "desc" | "asc" = "desc";
+      assign = sort[sortKey] === "asc" ? "desc" : "asc";
+      if (property !== sortKey) assign = "desc";
+      console.log({ property });
       onChange({ [property]: assign });
     }
   };
@@ -80,12 +82,13 @@ export function Th(props: N_Table.Th.Props) {
 
 export function Head(props: N_Table.Head.Props) {
   const { state } = useContext(TableContext);
-  const { children } = props;
+  const { children, checkbox } = props;
   const { header } = state;
-  const filtered = header.map((el, i) => ({ ...el, oi: i })).filter((el) => !el.hidden);
+  const filtered = header.filter((el) => !el.hidden).map((el, i) => ({ ...el, oi: i }));
 
   return (
     <>
+      {checkbox && <CheckBox {...checkbox} />}
       {filtered.map((column, i) => (
         <Th
           key={column.property}
@@ -103,11 +106,18 @@ Head.displayName = "JK__TABLE__HEAD";
 
 export function Body<T>(props: N_Table.Body.Props<T>) {
   const { data, children } = props;
+
   return (
     <>
-      {data.map((rowData, index) =>
-        children ? children({ index, rowData }) : <Row key={index} index={index} data={rowData} />,
-      )}
+      {data.map((rowData, index) => {
+        return children ? (
+          children({ index, rowData })
+        ) : (
+          <Row key={index}>
+            <Tr data={rowData} />
+          </Row>
+        );
+      })}
       {!data.length && <NoData text="데이터가 존재하지 않습니다." />}
     </>
   );
@@ -115,34 +125,32 @@ export function Body<T>(props: N_Table.Body.Props<T>) {
 
 Body.displayName = "JK__TABLE__BODY";
 
-export function Row<T>(props: N_Table.Row.Props<T>): JSX.Element {
-  const { st, className, children, data, ...rest } = props;
+export function Row(props: N_Table.Row.Props): JSX.Element {
+  const { st, className = "", children, ...rest } = props;
   return (
     <li {...rest} className={cx(cn.concat("__row"), { [className]: className })} style={st}>
-      {children ? children.type({ ...children.props, data }) : <Tr data={data} />}
+      {children}
     </li>
   );
 }
 
-const rowDefaultProps: N_Table.Row.DefaultProps = { className: "", data: {} };
-Row.defaultProps = rowDefaultProps;
-
 export function Tr<T>(props: N_Table.Tr.Props<T>) {
   const { state } = useContext(TableContext);
-  const { children, st, data } = props;
+  const { children, st, data, checkbox } = props;
   const { header } = state;
 
   return (
     <div className={cx(cn.concat("__tr"))} style={st}>
+      {checkbox && <CheckBox {...checkbox} />}
       {header
         .filter((el) => !el.hidden)
         .map((column) => {
           const { property } = column;
-          const value = data[property as keyof T] as unknown as string;
+          const value = data[property as keyof T];
 
           return (
             <Td key={property} column={column} value={value}>
-              {children ? children({ property, value }) : value ?? "-"}
+              <>{children ? children({ property, value }) : value ?? "-"}</>
             </Td>
           );
         })}
@@ -153,7 +161,7 @@ export function Tr<T>(props: N_Table.Tr.Props<T>) {
 const trDefaultProps: N_Table.Tr.DefaultProps = { data: {} };
 Tr.defaultProps = trDefaultProps;
 
-export function Td(props: N_Table.Td.Props) {
+export function Td<T>(props: N_Table.Td.Props<T>) {
   const { column, value, children } = props;
   const { state } = useContext(TableContext);
   const ref = useRef<HTMLDivElement>(null);
@@ -176,7 +184,7 @@ export function Td(props: N_Table.Td.Props) {
       <div ref={ref} style={align(column)} className={cx(cn.concat("__td__context"))}>
         <ToolTip
           position="bottom left"
-          content={value}
+          content={value as unknown as JSX.Element}
           ellipsis={size}
           disabled={!toolTip}
           maxWidth={400}>

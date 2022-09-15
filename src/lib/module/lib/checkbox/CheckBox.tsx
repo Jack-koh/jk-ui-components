@@ -6,12 +6,12 @@ import { N_CheckBox } from "lib/@types";
 const cn = "jk__checkbox";
 
 function CheckBox(props: N_CheckBox.Props) {
-  const { id, st, inputRef, className, indeterminate, label, ...rest } = props;
+  const { id, st, inputRef, className = "", indeterminate, label, ...rest } = props;
 
   const _className = cx(cn, {
-    [className]: className,
-    indeter: indeterminate,
-    disabled: rest.disabled,
+    [className]: !!className,
+    indeter: !!indeterminate,
+    disabled: !!rest.disabled,
   });
 
   return (
@@ -27,12 +27,5 @@ function CheckBox(props: N_CheckBox.Props) {
     </>
   );
 }
-
-const defaultProps: N_CheckBox.DefaultProps = {
-  className: "",
-  disabled: false,
-  indeterminate: false,
-};
-CheckBox.defaultProps = defaultProps;
 
 export default CheckBox;
